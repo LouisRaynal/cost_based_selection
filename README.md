@@ -4,8 +4,8 @@ We here provide a Python package named `cost_based_selection` associated to our 
 ## Table of contents
 * [Description](#description)
 * [Installation](#installation)
-* [Package outline](#outline)
-* [Simple examples](#examples)
+* [Package outline](#package-outline)
+* [Simple examples](#simple-examples)
 * [Authors](#authors)
 
 ## Description

@@ -6,4 +6,4 @@ These folders contains the Python scripts to perform the analyses displayed in o
 
 Notes:
 The folder `..\cost_based_selection\data` contains the data that we simulated and used, and by default the different scripts use them.
-We recommend launching the different scripts in parallel on a computer cluster as we did.
+Moreover, we recommend launching the different scripts in parallel on a computer cluster as we did.

@@ -8,6 +8,7 @@ accuracy of an k-nearest-neighbors classifier, and a Support Vector Machine
 classifier.
 """
 
+import multiprocessing
 import numpy as np
 import pandas as pd
 
@@ -18,6 +19,10 @@ from pkg_resources import resource_filename
 from sklearn.model_selection import train_test_split
 from sklearn.svm import SVC
 from sklearn.neighbors import KNeighborsClassifier
+
+# Specify the number of CPU cores to use when parallelism can be adopted,
+# to change if needed
+num_cores = max(1, multiprocessing.cpu_count() - 1)
 
 ##### Load the data
 
@@ -82,17 +87,19 @@ grid_cost_param_wRF = list(np.arange(0, 2, 0.002))
 # For the mRMR method
 dfRank_mRMR = cost_based_methods.multi_mRMR(X = X_train, y = y_train, is_disc = is_disc, 
                                            cost_vec = avg_cost_vec, cost_param_vec = grid_cost_param,
-                                           num_features_to_select = None, random_seed = 123)
+                                           num_features_to_select = None, random_seed = 123,
+                                           num_cores = num_cores)
 
 # For the JMI method
 dfRank_JMI = cost_based_methods.multi_JMI(X = X_train, y = y_train, is_disc = is_disc,
                                           cost_vec = avg_cost_vec, cost_param_vec = grid_cost_param,
-                                          num_features_to_select = None, random_seed = 123)
-
+                                          num_features_to_select = None, random_seed = 123,
+                                          num_cores = num_cores)
 # For the JMIM method
 dfRank_JMIM = cost_based_methods.multi_JMIM(X = X_train, y = y_train, is_disc = is_disc,
                                             cost_vec = avg_cost_vec, cost_param_vec = grid_cost_param,
-                                            num_features_to_select = None, random_seed = 123)
+                                            num_features_to_select = None, random_seed = 123,
+                                            num_cores = num_cores)
 
 # For the classic reliefF method
 dfRank_reliefF_classic = cost_based_methods.multi_reliefF(X = X_train, y = y_train, 
@@ -141,8 +148,7 @@ subset_size = 15
 
 # Using a 10-nearest-neighbors classifier
 classifier = KNeighborsClassifier
-dict_args = {'n_neighbors':10, 'n_jobs':1}
-# !!!TO DO: Do I use n_jobs different than 1?
+dict_args = {'n_neighbors':10, 'n_jobs':num_cores}
 avg_accuracy_mRMR_knn, std_accuracy_mRMR_knn, total_cost_mRMR_knn, prop_noise_mRMR_knn = cost_based_analysis.accuracy_classifier_plot(dfPen_Ranking = dfRank_mRMR, 
                                                                                                                                       X_val = X_val, 
                                                                                                                                       y_val = y_val,
@@ -172,7 +178,7 @@ avg_accuracy_mRMR_SVM, std_accuracy_mRMR_SVM, total_cost_mRMR_SVM, prop_noise_mR
 
 # Using a 10-nearest-neighbors classifier
 classifier = KNeighborsClassifier
-dict_args = {'n_neighbors':10, 'n_jobs':1}
+dict_args = {'n_neighbors':10, 'n_jobs':num_cores}
 avg_accuracy_JMI_knn, std_accuracy_JMI_knn, total_cost_JMI_knn, prop_noise_JMI_knn = cost_based_analysis.accuracy_classifier_plot(dfPen_Ranking = dfRank_JMI,
                                                                                                                                   X_val = X_val, 
                                                                                                                                   y_val = y_val,
@@ -201,7 +207,7 @@ avg_accuracy_JMI_SVM, std_accuracy_JMI_SVM, total_cost_JMI_SVM, prop_noise_JMI_S
 
 # Using a 10-nearest-neighbors classifier
 classifier = KNeighborsClassifier
-dict_args = {'n_neighbors':10, 'n_jobs':1}
+dict_args = {'n_neighbors':10, 'n_jobs':num_cores}
 avg_accuracy_JMIM_knn, std_accuracy_JMIM_knn, total_cost_JMIM_knn, prop_noise_JMIM_knn = cost_based_analysis.accuracy_classifier_plot(dfPen_Ranking = dfRank_JMIM,
                                                                                                                                       X_val = X_val, 
                                                                                                                                       y_val = y_val,
@@ -230,7 +236,7 @@ avg_accuracy_JMIM_SVM, std_accuracy_JMIM_SVM, total_cost_JMIM_SVM, prop_noise_JM
 
 # Using a 10-nearest-neighbors classifier
 classifier = KNeighborsClassifier
-dict_args = {'n_neighbors':10, 'n_jobs':1}
+dict_args = {'n_neighbors':10, 'n_jobs':num_cores}
 avg_accuracy_reliefF_classic_knn, std_accuracy_reliefF_classic_knn, total_cost_reliefF_classic_knn, prop_noise_reliefF_classic_knn = cost_based_analysis.accuracy_classifier_plot(dfPen_Ranking = dfRank_reliefF_classic,
                                                                                                                                                                                   X_val = X_val, 
                                                                                                                                                                                   y_val = y_val,
@@ -259,7 +265,7 @@ avg_accuracy_reliefF_classic_SVM, std_accuracy_reliefF_classic_SVM, total_cost_r
 
 # Using a 10-nearest-neighbors classifier
 classifier = KNeighborsClassifier
-dict_args = {'n_neighbors':10, 'n_jobs':1}
+dict_args = {'n_neighbors':10, 'n_jobs':num_cores}
 avg_accuracy_reliefF_classic_knn, std_accuracy_reliefF_rf_knn, total_cost_reliefF_rf_knn, prop_noise_reliefF_rf_knn = cost_based_analysis.accuracy_classifier_plot(dfPen_Ranking = dfRank_reliefF_rfprox,
                                                                                                                                                                    X_val = X_val,
                                                                                                                                                                    y_val = y_val,
@@ -288,7 +294,7 @@ avg_accuracy_reliefF_rf_SVM, std_accuracy_reliefF_rf_SVM, total_cost_reliefF_rf_
 
 # Using a 10-nearest-neighbors classifier
 classifier = KNeighborsClassifier
-dict_args = {'n_neighbors':10, 'n_jobs':1}
+dict_args = {'n_neighbors':10, 'n_jobs':num_cores}
 avg_accuracy_wRF_impurity_knn, std_accuracy_wRF_impurity_knn, total_cost_wRF_impurity_knn, prop_noise_wRF_impurity_knn = cost_based_analysis.accuracy_classifier_plot(dfPen_Ranking = dfRank_wRF_impurity,
                                                                                                                                                                       X_val = X_val,
                                                                                                                                                                       y_val = y_val,
@@ -317,7 +323,7 @@ avg_accuracy_wRF_impurity_SVM, std_accuracy_wRF_impurity_SVM, total_cost_wRF_imp
 
 # Using a 10-nearest-neighbors classifier
 classifier = KNeighborsClassifier
-dict_args = {'n_neighbors':10, 'n_jobs':1}
+dict_args = {'n_neighbors':10, 'n_jobs':num_cores}
 avg_accuracy_wRF_permutation_knn, std_accuracy_wRF_permutation_knn, total_cost_wRF_permutation_knn, prop_noise_wRF_permutation_knn = cost_based_analysis.accuracy_classifier_plot(dfPen_Ranking = dfRank_wRF_permutation,
                                                                                                                                                                                   X_val = X_val,
                                                                                                                                                                                   y_val = y_val,
@@ -346,7 +352,7 @@ avg_accuracy_wRF_permutation_SVM, std_accuracy_wRF_permutation_SVM, total_cost_w
 
 # Using a 10-nearest-neighbors classifier
 classifier = KNeighborsClassifier
-dict_args = {'n_neighbors':10, 'n_jobs':1}
+dict_args = {'n_neighbors':10, 'n_jobs':num_cores}
 avg_accuracy_penrf_impurity_knn, std_accuracy_penrf_impurity_knn, total_cost_penrf_impurity_knn, prop_noise_penrf_impurity_knn = cost_based_analysis.accuracy_classifier_plot(dfPen_Ranking = dfRank_penRF_impurity,
                                                                                                                                                                               X_val = X_val,
                                                                                                                                                                               y_val = y_val,
@@ -376,7 +382,7 @@ avg_accuracy_penrf_impurity_SVM, std_accuracy_penrf_impurity_SVM, total_cost_pen
 
 # Using a 10-nearest-neighbors classifier
 classifier = KNeighborsClassifier
-dict_args = {'n_neighbors':10, 'n_jobs':1}
+dict_args = {'n_neighbors':10, 'n_jobs':num_cores}
 avg_accuracy_penrf_permutation_knn, std_accuracy_penrf_permutation_knn, total_cost_penrf_permutation_knn, prop_noise_penrf_permutation_knn = cost_based_analysis.accuracy_classifier_plot(dfPen_Ranking = dfRank_penRF_permutation,
                                                                                                                                                                                           X_val = X_val,
                                                                                                                                                                                           y_val = y_val,

@@ -13,7 +13,7 @@ This project focuses on cost-based selection of network features. Indeed, when s
 
 Thanks to cost-based filter selection methods, for classification problems, we take into consideration the computational cost associated to each feature during the feature selection process, to create a balance between total feature cost and classification accuracy.
 
-In our paper we also investigate the benefit of using smaller networks (with fewer nodes than the observed data) for feature selection to classify networks with as many nodes as the observed data. Modules related to this  are also provided.
+In our paper we also investigate the benefit of using smaller networks (with fewer nodes than the observed data) for feature selection to classify networks with as many nodes as the observed data. Modules related to this are also provided.
 
 ## Installation
 
@@ -43,13 +43,13 @@ The Python modules of this package are:
 
 We present below a very simple example on how to use the main functions of this package to perform cost-based feature selection. See also `simple_examples\BA_cost_based_selection_analysis.py`.
 
-First, generate some data, here according to the four settings of the Barabási-Albert models presented in our paper.
+First, generate some data, here according to the four settings of the Barabási-Albert model presented in our paper.
 
 ```python
 from cost_based_selection import data_generation
 
-num_sim_model = 50 	# Number of simulations per model
-num_nodes = 20 		# Number of nodes in the networks
+num_sim_model = 50 	# Number of simulated data per model
+num_nodes = 20 		# Number of nodes in each network
 
 dfModIndex, dfSummaries, \
 dfIsDisc, dfTimes = data_generation.BA_ref_table(num_sim_model, num_nodes)
@@ -69,7 +69,7 @@ dfIsDisc, dfTimes = preprocessing_utils.drop_redundant_features(dfModIndex,
 noise_idx = preprocessing_utils.noise_position(dfSummaries)
 ```
 
-Compute the feature cost vector, here the average CPU time of each feature, that we normalize.
+Compute the feature cost vector, here the average computational time of each feature, that we normalize.
 
 ```python
 avg_cost_vec = preprocessing_utils.compute_avg_cost(dfTimes)
@@ -87,7 +87,7 @@ is_disc = dfIsDisc.iloc[0,:].tolist()
 (X_train, X_val, \
  y_train, y_val) = train_test_split(X, y, test_size=0.5, random_state=123, stratify=y)
 ```
-We now can obtain a feature ranking given a cost penalization parameter value, or use a list of parameters to obtain each ranking in a pandas DataFrame. We below use the method based on Joint Mutual Information (JMI), but other methods can be used similarly. See the module `cost_based_methods`.
+We now can obtain a feature ranking given a cost penalization parameter value, or we can use a list of parameters to obtain each ranking in a pandas DataFrame. We below use the method based on Joint Mutual Information (JMI), but other methods can be used similarly. See the module `cost_based_methods`.
 
 ```python
 from cost_based_selection import cost_based_methods
@@ -111,7 +111,7 @@ from cost_based_selection import cost_based_analysis
 from sklearn.neighbors import KNeighborsClassifier
 
 subset_size = 15 					# Number of best features to keep
-classifier = KNeighborsClassifier 	# Classifier
+classifier = KNeighborsClassifier 	# Classifier, k-nn for example
 dict_args = {'n_neighbors':10}		# Arguments of the classifier
 
 avg_accuracy, std_accuracy, \
@@ -125,7 +125,7 @@ cost_based_analysis.accuracy_classifier_plot(dfPen_Ranking = dfRank, X_val = X_v
                                              num_fold = 3, save_name = None)
 ```
 
-### Network size influence to select features
+### Influence of network size to select features
 
 We also provide a simple code (see `simple_examples\BA_network_size_analysis.py`) to illustrate how to analyze the influence of using feature selection with smaller networks, to then classify larger networks.
 

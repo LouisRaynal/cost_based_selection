@@ -19,7 +19,7 @@ num_cores = max(1, multiprocessing.cpu_count() - 1)
 num_sim_model = 2500
 
 # Specify the directory where to save the data
-loc_data = ""
+loc_data = ''
 
 if num_cores == 1:
     

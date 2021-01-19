@@ -24,7 +24,7 @@ seed_network = nx.Graph()
 seed_network.add_edge(0,1)
 
 # Specify the directory where to save the data
-save_directory = ""
+save_directory = ''
 
 if num_cores == 1:
     

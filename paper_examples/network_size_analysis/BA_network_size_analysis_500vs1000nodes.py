@@ -38,9 +38,9 @@ dfIsDisc_small = pd.read_csv(filepath_or_buffer = resource_filename('cost_based_
 dfTimes_small = pd.read_csv(filepath_or_buffer = resource_filename('cost_based_selection', 'data/times_10000sim_'+str(small_size)+'nodes_BA.csv'))
 
 dfModIndex_large = pd.read_csv(filepath_or_buffer = resource_filename('cost_based_selection', 'data/modIndex_10000sim_'+str(large_size)+'nodes_BA.csv'))
-dfSummaries_large = pd.read_csv(filepath_or_buffer = resource_filename('cost_based_selection", "data/summaries_10000sim_'+str(large_size)+'nodes_BA.csv'))
-dfIsDisc_large = pd.read_csv(filepath_or_buffer = resource_filename('cost_based_selection", "data/isDisc_10000sim_'+str(large_size)+'nodes_BA.csv'))
-dfTimes_large = pd.read_csv(filepath_or_buffer = resource_filename('cost_based_selection", "data/times_10000sim_'+str(large_size)+'nodes_BA.csv'))
+dfSummaries_large = pd.read_csv(filepath_or_buffer = resource_filename('cost_based_selection', 'data/summaries_10000sim_'+str(large_size)+'nodes_BA.csv'))
+dfIsDisc_large = pd.read_csv(filepath_or_buffer = resource_filename('cost_based_selection', 'data/isDisc_10000sim_'+str(large_size)+'nodes_BA.csv'))
+dfTimes_large = pd.read_csv(filepath_or_buffer = resource_filename('cost_based_selection', 'data/times_10000sim_'+str(large_size)+'nodes_BA.csv'))
 
 # We loaded the data that we used in our paper, if you would like to use another
 # reference table, please uncomment the corresponding lines below and specify

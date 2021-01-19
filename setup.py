@@ -16,7 +16,7 @@ setuptools.setup(
                                                'cost_based_selection.*']),
     classifiers=[
         "Programming Language :: Python :: 3",
-        "License :: OSI Approved :: MIT License",
+        "License :: OSI Approved :: BSD-3-Clause License",
         "Operating System :: OS Independent",
     ],
     python_requires='>=3.6',

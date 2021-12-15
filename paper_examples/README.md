@@ -1,4 +1,4 @@
-These folders contains the Python scripts to perform the analyses displayed in our paper. Scripts labeled `BA_*.py` are related to the Barabási-Albert models, while scripts labeled `DMC_DMR_*.py` are related to the Duplication Mutation Complementation / Duplication with Random Mutation models. Moreover, codes are using by default the maximum number of CPU cores minus one when possible.
+These folders contain the Python scripts to perform the analyses displayed in our paper. Scripts labeled `BA_*.py` are related to the Barabási-Albert models, while scripts labeled `DMC_DMR_*.py` are related to the Duplication Mutation Complementation / Duplication with Random Mutation models. Moreover, codes are using by default the maximum number of CPU cores minus one when possible.
 
 - The folder `data_generation` contains the scripts to generate the different reference tables.
 - The folder `cost_based_selection_analysis` contains the scripts to analyze the performance of the cost-based feature selection methods.
